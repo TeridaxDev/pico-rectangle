@@ -96,8 +96,10 @@ GCReport getGCReport(GpioToButtonSets::F1::ButtonSet buttonSet) {
     }
     else if (horizontal) {
         if (bs.mx == bs.my) xy = coords(1.0, 0.0);
-        else if (bs.mx) xy =  coords(0.5, 0.0); // 0.6625 -> 0.5 + removed ledgedash facilitation
-        else xy = coords(0.3375, 0.0); // No slight side B, unchanged besides that
+        else if (bs.mx) xy =  coords(0.667, 0.0); // 0.5 => 0.667 
+        // matched other rectangles walk speed on Ultimate (fastest walk possible without ledgeslip)
+        // now pressing L/R + MX + B enables tilt input for side B (Palutena close Explosive Flame, Samus homing missiles, etc)
+        else xy = coords(0.319, 0.0); // matched other rectangles walk speed on Ultimate (slowest walk possible)
     }
     else if (vertical) {
         if (bs.mx == bs.my) xy = coords(0.0, 1.0);
