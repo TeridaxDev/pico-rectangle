@@ -13,10 +13,10 @@ bool right_wasPressed = false;
 bool up_wasPressed = false;
 bool down_wasPressed = false;
 
-bool left_outlawUntilRelease = false;
-bool right_outlawUntilRelease = false;
-bool up_outlawUntilRelease = false;
-bool down_outlawUntilRelease = false;
+bool left_recentlyPressed = false;
+bool right_recentlyPressed = false;
+bool up_recentlyPressed = false;
+bool down_recentlyPressed = false;
 
 struct Coords {
     uint8_t x;
@@ -37,27 +37,27 @@ GCReport getGCReport(GpioToButtonSets::F1::ButtonSet buttonSet) {
 
     GCReport gcReport = defaultGcReport;
 
-    /* 2IP No reactivation */
+    /* 2IP With reactivation */
     
-    if (left_wasPressed && bs.left && bs.right && !right_wasPressed) left_outlawUntilRelease=true;
-    if (right_wasPressed && bs.left && bs.right && !left_wasPressed) right_outlawUntilRelease=true;
-    if (up_wasPressed && bs.up && bs.down && !down_wasPressed) up_outlawUntilRelease=true;
-    if (down_wasPressed && bs.up && bs.down && !up_wasPressed) down_outlawUntilRelease=true;
+    if (left_wasPressed && bs.left && bs.right && !right_wasPressed) left_recentlyPressed=true;
+    if (right_wasPressed && bs.left && bs.right && !left_wasPressed) right_recentlyPressed=true;
+    if (up_wasPressed && bs.up && bs.down && !down_wasPressed) up_recentlyPressed=true;
+    if (down_wasPressed && bs.up && bs.down && !up_wasPressed) down_recentlyPressed=true;
 
-    if (!bs.left) left_outlawUntilRelease=false;
-    if (!bs.right) right_outlawUntilRelease=false;
-    if (!bs.up) up_outlawUntilRelease=false;
-    if (!bs.down) down_outlawUntilRelease=false;
+    if (!bs.left || !bs.right) left_recentlyPressed=false;
+    if (!bs.left || !bs.right) right_recentlyPressed=false;
+    if (!bs.up || !bs.down) up_recentlyPressed=false;
+    if (!bs.up || !bs.down) down_recentlyPressed=false;
 
     left_wasPressed = bs.left;
     right_wasPressed = bs.right;
     up_wasPressed = bs.up;
     down_wasPressed = bs.down;
 
-    if (left_outlawUntilRelease) bs.left=false;
-    if (right_outlawUntilRelease) bs.right=false;
-    if (up_outlawUntilRelease) bs.up=false;
-    if (down_outlawUntilRelease) bs.down=false;
+    if (left_recentlyPressed) bs.left=false;
+    if (right_recentlyPressed) bs.right=false;
+    if (up_recentlyPressed) bs.up=false;
+    if (down_recentlyPressed) bs.down=false;
     
     /* Stick */
 
