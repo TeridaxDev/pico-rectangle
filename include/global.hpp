@@ -8,8 +8,8 @@ const int us = 125;
 #define LED_PIN 25
 #define USB_POWER_PIN 24
 
-const uint8_t gcDataPin = 28;
-const uint8_t rumblePin = 11;
+const uint8_t gcDataPin = 18;
+const uint8_t rumblePin = 17;
 
 #define USE_UART0 0
 
